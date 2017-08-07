@@ -111,3 +111,4 @@ TODAS OPÇÕES
 	}, 'SEARCH':{
 		'-q/--query': dictionary['-q/--query']
 	}}
+
