@@ -1,0 +1,31 @@
+{
+	"apikeys": {
+		"i0mf0rmer01" :{
+			"app_key":0EMlPO3xsnI7woFX2X1ndE9SZ,
+			"app_secret":5mwAJQ3zUo5A34815TBo2Plk4w4NghzuIXY8l2owSs0Jmd8QOK,
+			"oauth_token":883452349641089025-H7cpOcBL3UGP5RlS1Wpvwzowzuvj56x,
+			"oauth_token_secret":X5DGAble5W3kD00sgbhcLMHOqypQQGfRqOrUhLfuVv2vC
+		},
+		"i0mf0rmer02" :{
+			"app_key":2f18aOuyQU6K8NuMiy0Q1B61P,
+			"app_secret":1mljO1psJeGzAWyT0QqwMULFM1ghj12XcOIcwccv7N3fcszPIg,
+			"oauth_token":883452349641089025-XUnIkLA9u6DE8Bmc0D5lwl8Ya1SVhdd,
+			"oauth_token_secret":FDfMTIMlSRHNZcy71UyOU8xUvAZ5crsqt8QKnJ4E0E576
+		},
+		"i0mf0rmer03" :{
+			"app_key":TNs9lxCwAqXVd3Fuq0MiM1Y9V,
+			"app_secret":oaE23LzAktOWNxRBRY4dT5icHTQ6nubPZlf8fTWqI6rGfNkRbU,
+			"oauth_token":883452349641089025-bFOinBoce7oQvueecF9dTMWxoArTPDA,
+			"oauth_token_secret":xnRAHwCoSOmFsRppkJtHU3O3mHk54SzSGQBw1fYVBORmD
+		}
+	},
+	"redis_config": {
+		"host": "localhost",
+		"port": 6379,
+		"db": 0,
+		"password": "1234"
+	},
+	"verbose": "True",
+	"output": "./data",
+	"archive_output": "./data"
+}

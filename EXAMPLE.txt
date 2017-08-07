@@ -1,0 +1,31 @@
+Inicializa os crawlers de acordo com as configurações dos apps registrados na API do Twitter e com ou sem proxies. Os proxies são necessários e podem ser inseridos manualmente ou através de um script - (scripts/crawl_proxies.py) - que coleta free proxies from http://spys.ru/en/http-proxy-list/ e já adiciona no arquio proxies.json
+
+./bootstrap.sh -c config.json -p proxies.json
+
+
+Depois de rodar o bootstrap, enviar comandos para o crawler... Exemplos:
+
+1 - Coletar todos os usuários que os elementos em user_ids estão seguindo, ou seja, os amigos do ego.
+./client.sh -c config.json -cmd BATCH_CRAWL_FRIENDS -d 1 -dt "ids" -j user_ids.json
+
+ -c ----- arquivo de configuração com as chaves para acesso à API do Twitter e configuração do redis.
+
+-cmd ---- comando enviado para o crawler.
+
+-d ----- profundidade (1 indica apenas info dos usuários no arquivo - seed, 2 indica informações dos usuários e dos seguidores ou amigos dos usuários)
+
+-dt ---- data-type - indica o tipo de dado que está sendo passado como parâmetro
+
+-j ----- arquivo JSON com a lista de seeds. Poderia ser -uid (user id) ou tid (twitter id). Para um único usuário, usa-se CRAWL_FRIENDS no lugar de BATCH_CRAWL_FRIENDS e especifica com uid.
+
+opções:
+
+
+-c CONFIG -cmd COMMAND [-uid USER_ID] [-tid TWEET_ID] [-dt DATA_TYPE] [-d DEPTH] [-j JSON] [-o OUTPUT] [-nid NODE_ID] [-q QUERY]
+
+
+
+
+
+
+

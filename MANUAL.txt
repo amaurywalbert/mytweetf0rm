@@ -1,0 +1,113 @@
+#############################################################################################################
+
+Primeiramente ler o README.md e Requeriments.txt
+
+#############################################################################################################
+
+Inicializa os crawlers de acordo com as configurações dos apps registrados na API do Twitter, com ou sem proxies.
+As chaves devem ser inseridas em config.json
+
+Os proxies são necessários e podem ser inseridos manualmente ou através de um script - (scripts/crawl_proxies.py) - que coleta free proxies from http://spys.ru/en/http-proxy-list/ e já adiciona no arquio proxies.json
+
+Para inicializar os crawlers (um crawler para cada chave):
+./bootstrap.sh -c config.json -p proxies.json
+
+
+Depois de rodar o bootstrap, enviar comandos para os crawlers... Exemplos:
+
+1 - Coletar todos os usuários que os elementos em user_ids estão seguindo, ou seja, os amigos do ego/seeds.
+./client.sh -c config.json -cmd BATCH_CRAWL_FRIENDS -d 1 -dt "ids" -j user_ids.json
+
+2 - Coletar todos os usuários que seguem os seeds.
+./client.sh -c config.json -cmd BATCH_CRAWL_FOLLOWERS -d 1 -dt "ids" -j user_ids.json
+
+3 - Coletar os amigos do seed 1948122342
+./client.sh -c tests/config.json -cmd CRAWL_FRIENDS -d 1 -dt "ids" -uid 1948122342
+
+4 - Coletar todos tuítes na timeline dos seeds.
+./client.sh -c config.json -cmd BATCH_CRAWL_USER_TIMELINE -d 1 -dt "ids" -j user_ids.json
+
+5 - Coletar todos tuítes favoritados pelos seeds.
+./client.sh -c config.json -cmd BATCH_CRAWL_USER_FAVORITES -d 1 -dt "ids" -j dataset/n3_500_egos_favorites_alters_ids.json
+
+6 - Coletar todos tuítes retuitados pelos seeds.
+./client.sh -c config.json -cmd BATCH_CRAWL_USER_RETWEEETS -d 1 -dt "ids" -j dataset/n2_500_egos_retweets_alters_ids.json
+
+7 - Coletar todos os mencionados pelos seeds.
+./client.sh -c config.json -cmd BATCH_CRAWL_USER_MENTIONS -d 1 -dt "ids" -j dataset/n4_500_egos_mentions_alters_ids.json
+
+#############################################################################################################
+DETALHES
+ -c ----- arquivo de configuração com as chaves para acesso à API do Twitter e configuração do redis.
+
+-cmd ---- comando enviado para o crawler.
+
+-d ----- profundidade (1 indica apenas info dos usuários no arquivo - seed, 2 indica informações dos usuários e dos seguidores ou amigos dos usuários)
+
+-dt ---- data-type - indica o tipo de dado que está sendo passado como parâmetro
+
+-j ----- arquivo JSON com a lista de seeds. Poderia ser -uid (user id) ou tid (twitter id). Para um único usuário, usa-se CRAWL_FRIENDS no lugar de BATCH_CRAWL_FRIENDS e especifica com uid.
+
+#############################################################################################################
+TODAS OPÇÕES
+
+-c CONFIG -cmd COMMAND [-uid USER_ID] [-tid TWEET_ID] [-dt DATA_TYPE] [-d DEPTH] [-j JSON] [-o OUTPUT] [-nid NODE_ID] [-q QUERY]
+
+		'-uid/--user_id': 'the user id that you want to crawl his/her friends (who he/she is following) or followers',
+		'-tid/--tweet_id': 'the tweet id that you want to fetch',
+		#'-nt/--network_type': 'whether you want to crawl his/her friends or followers',
+		'-dt/--data_type': '"ids" or "users" (default to ids) what the results are going to look like (either a list of twitter user ids or a list of user objects)',
+		'-d/--depth': 'the depth of the network; e.g., if it is 2, it will give you his/her (indicated by the -uid) friends\' friends',
+		'-j/--json': 'a json file that contains a list of screen_names or user_ids, depending on the command',
+		'-o/--output': ' the output json file (for storing user_ids from screen_names)',
+		'-nid/--node_id':'the node_id that you want to interact with; default to the current machine...',
+		'-q/--query': 'the query to search'
+	}
+	cmds =  {'CRAWL_FRIENDS': {
+		'-uid/--user_id': dictionary['-uid/--user_id'],
+		#'-nt/--network_type': dictionary['-nt/--network_type'],
+		'-dt/--data_type': dictionary['-dt/--data_type'],
+		'-d/--depth': dictionary['-d/--depth']
+	}, 'BATCH_CRAWL_FRIENDS':{
+		'-j/--json': dictionary['-j/--json'],
+		#'-nt/--network_type': dictionary['-nt/--network_type'],
+		'-dt/--data_type': dictionary['-dt/--data_type'],
+		'-d/--depth': dictionary['-d/--depth']
+	}, 'CRAWL_FOLLOWERS':{
+		'-uid/--user_id': dictionary['-uid/--user_id'],
+		#'-nt/--network_type': dictionary['-nt/--network_type'],
+		'-dt/--data_type': dictionary['-dt/--data_type'],
+		'-d/--depth': dictionary['-d/--depth']
+	}, 'BATCH_CRAWL_FOLLOWERS':{
+		'-j/--json': dictionary['-j/--json'],
+		#'-nt/--network_type': dictionary['-nt/--network_type'],
+		'-dt/--data_type': dictionary['-dt/--data_type'],
+		'-d/--depth': dictionary['-d/--depth']
+	}, 'CRAWL_USER_TIMELINE': {
+		'-uid/--user_id': dictionary['-uid/--user_id']
+	}, 'CRAWL_USER_FAVORITES': {
+		'-uid/--user_id': dictionary['-uid/--user_id']		
+	}, 'CRAWL_TWEET': {
+		'-tid/--tweet_id': dictionary['-tid/--tweet_id']
+	}, 'BATCH_CRAWL_TWEET': {
+		'-j/--json': dictionary['-j/--json']
+	}, 'BATCH_CRAWL_USER_TIMELINE': {
+		'-j/--json': dictionary['-j/--json']
+	}, 'BATCH_CRAWL_USER_FAVORITES': {
+		'-j/--json': dictionary['-j/--json']		
+	}, 'GET_UIDS_FROM_SCREEN_NAMES': {
+		'-j/--json':  dictionary['-j/--json'],
+		'-o/--output':  dictionary['-o/--output']
+	}, 'GET_USERS_FROM_IDS': {
+		'-j/--json':  dictionary['-j/--json'],
+		'-o/--output':  dictionary['-o/--output']
+	}, 'LIST_NODES': {
+	}, 'SHUTDOWN_NODE': {
+		'-nid/--node_id':  dictionary['-nid/--node_id']
+	}, 'NODE_QSIZES':{
+		'-nid/--node_id':  dictionary['-nid/--node_id']
+	}, 'CLEAR_NODE_QUEUES':{
+		'-nid/--node_id':  dictionary['-nid/--node_id']
+	}, 'SEARCH':{
+		'-q/--query': dictionary['-q/--query']
+	}}
