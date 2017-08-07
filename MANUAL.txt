@@ -27,14 +27,21 @@ Depois de rodar o bootstrap, enviar comandos para os crawlers... Exemplos:
 4 - Coletar todos tuítes na timeline dos seeds.
 ./client.sh -c config.json -cmd BATCH_CRAWL_USER_TIMELINE -d 1 -dt "ids" -j user_ids.json
 
-5 - Coletar todos tuítes favoritados pelos seeds.
-./client.sh -c config.json -cmd BATCH_CRAWL_USER_FAVORITES -d 1 -dt "ids" -j dataset/n3_500_egos_favorites_alters_ids.json
+
+5 - Coletar todos amigos dos amigos dos seeds.
+./client.sh -c config.json -cmd BATCH_CRAWL_FRIENDS -d 1 -dt "ids" -j dataset/n1_500_egos_friends_alters_ids.json
 
 6 - Coletar todos tuítes retuitados pelos seeds.
-./client.sh -c config.json -cmd BATCH_CRAWL_USER_RETWEEETS -d 1 -dt "ids" -j dataset/n2_500_egos_retweets_alters_ids.json
+./client.sh -c config.json -cmd BATCH_CRAWL_USER_RETWEETS -d 1 -dt "ids" -j dataset/n2_500_egos_retweets_alters_ids.json
 
-7 - Coletar todos os mencionados pelos seeds.
+7 - Coletar todos tuítes favoritados pelos seeds.
+./client.sh -c config.json -cmd BATCH_CRAWL_USER_FAVORITES -d 1 -dt "ids" -j dataset/n3_500_egos_favorites_alters_ids.json
+
+8 - Coletar todos os mencionados pelos seeds.
 ./client.sh -c config.json -cmd BATCH_CRAWL_USER_MENTIONS -d 1 -dt "ids" -j dataset/n4_500_egos_mentions_alters_ids.json
+
+9 - Coletar todos os amigos dos seguidores dos seeds.
+./client.sh -c config.json -cmd BATCH_CRAWL_FRIENDS -d 1 -dt "ids" -j dataset/n9_500_egos_followers_alters_ids.json
 
 #############################################################################################################
 DETALHES
